@@ -9,14 +9,13 @@
 
 /* Highlight for current line (5-10 word group) */
 .tts-line-highlight {
-  background-color: rgba(255, 235, 59, 0.2) !important;
-  padding: 2px 4px !important;
-  border-radius: 4px !important;
+  /* Removed background-color and border-radius to eliminate line-wise blue background */
   transition: background-color 0.2s ease !important;
 }
 
 /* Highlight for selected text */
 .tts-selected {
+  line-height: 1.9 !important;
   background-color: #e3f2fd !important;
   border: 2px solid #2196f3 !important;
   border-radius: 4px !important;
@@ -142,11 +141,15 @@
   border: none !important;
   cursor: pointer !important;
   font-size: 14px !important;
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   transition: all 0.2s ease !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  margin-right: 8px !important;
+  vertical-align: top !important;
+  position: relative !important;
+  z-index: 10 !important;
 }
 
 .tts-quick-play-btn:hover:not(:disabled) {

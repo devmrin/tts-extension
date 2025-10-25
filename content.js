@@ -172,9 +172,6 @@ function createPlayerWidget() {
         <button id="tts-pause" disabled>⏸</button>
         <button id="tts-stop" disabled>⏹</button>
       </div>
-      <div class="tts-quick-play">
-        <button id="tts-quick-play" class="tts-quick-play-btn" disabled>▶</button>
-      </div>
       <div class="tts-voice">
         <label>Voice:</label>
         <select id="tts-voice-select" disabled>
@@ -203,7 +200,6 @@ function setupPlayerEventListeners() {
   const playBtn = document.getElementById('tts-play');
   const pauseBtn = document.getElementById('tts-pause');
   const stopBtn = document.getElementById('tts-stop');
-  const quickPlayBtn = document.getElementById('tts-quick-play');
   const dismissBtn = document.getElementById('tts-dismiss');
   const speedSlider = document.getElementById('tts-speed-slider');
   const speedValue = document.getElementById('tts-speed-value');
@@ -212,15 +208,6 @@ function setupPlayerEventListeners() {
   playBtn.addEventListener('click', playTTS);
   pauseBtn.addEventListener('click', pauseTTS);
   stopBtn.addEventListener('click', stopTTS);
-  
-  // Quick play button - toggles between play and pause
-  quickPlayBtn.addEventListener('click', () => {
-    if (isPlaying) {
-      pauseTTS();
-    } else {
-      playTTS();
-    }
-  });
   
   // Dismiss button functionality
   dismissBtn.addEventListener('click', () => {
@@ -311,16 +298,18 @@ function updatePlayerState() {
   playBtn.disabled = !hasText || isPlaying;
   pauseBtn.disabled = !hasText || !isPlaying;
   stopBtn.disabled = !hasText || (!isPlaying && !isPaused);
-  quickPlayBtn.disabled = !hasText;
   
-  // Update quick play button icon and state
-  if (hasText) {
-    if (isPlaying) {
-      quickPlayBtn.textContent = '⏸';
-      quickPlayBtn.title = 'Pause';
-    } else {
-      quickPlayBtn.textContent = '▶';
-      quickPlayBtn.title = 'Play';
+  // Update quick play button icon and state (now in the text content)
+  if (quickPlayBtn) {
+    quickPlayBtn.disabled = !hasText;
+    if (hasText) {
+      if (isPlaying) {
+        quickPlayBtn.textContent = '⏸';
+        quickPlayBtn.title = 'Pause';
+      } else {
+        quickPlayBtn.textContent = '▶';
+        quickPlayBtn.title = 'Play';
+      }
     }
   }
   
@@ -479,6 +468,11 @@ document.addEventListener('click', (e) => {
     return;
   }
   
+  // Don't capture clicks on the quick play button
+  if (e.target.id === 'tts-quick-play' || e.target.closest('#tts-quick-play')) {
+    return;
+  }
+  
   // Only capture if the element has text content
   const element = e.target;
   const text = element.textContent?.trim();
@@ -513,6 +507,44 @@ function addSelectionHighlight(element) {
   
   // Add selection highlight class
   element.classList.add('tts-selected');
+  
+  // Add quick play button at the beginning of the text
+  addQuickPlayButton(element);
+}
+
+// Add quick play button to the beginning of selected text
+function addQuickPlayButton(element) {
+  // Remove any existing quick play button
+  removeQuickPlayButton();
+  
+  // Create quick play button
+  const quickPlayBtn = document.createElement('button');
+  quickPlayBtn.id = 'tts-quick-play';
+  quickPlayBtn.className = 'tts-quick-play-btn';
+  quickPlayBtn.textContent = '▶';
+  quickPlayBtn.title = 'Play';
+  quickPlayBtn.disabled = false;
+  
+  // Add event listener for the quick play button
+  quickPlayBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent triggering the text selection
+    if (isPlaying) {
+      pauseTTS();
+    } else {
+      playTTS();
+    }
+  });
+  
+  // Insert the button at the beginning of the element
+  element.insertBefore(quickPlayBtn, element.firstChild);
+}
+
+// Remove quick play button
+function removeQuickPlayButton() {
+  const existingBtn = document.getElementById('tts-quick-play');
+  if (existingBtn) {
+    existingBtn.remove();
+  }
 }
 
 // Clear selection highlight
@@ -521,6 +553,9 @@ function clearSelectionHighlight() {
   if (selected) {
     selected.classList.remove('tts-selected');
   }
+  
+  // Also remove the quick play button
+  removeQuickPlayButton();
 }
 
 // Initialize the player widget when content script loads
