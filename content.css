@@ -1,0 +1,269 @@
+/* Highlight for currently spoken word */
+.tts-highlight {
+  background-color: #ffeb3b !important;
+  color: #000 !important;
+  padding: 2px 0 !important;
+  border-radius: 2px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+/* Highlight for current line (5-10 word group) */
+.tts-line-highlight {
+  background-color: rgba(255, 235, 59, 0.2) !important;
+  padding: 2px 4px !important;
+  border-radius: 4px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+/* Highlight for selected text */
+.tts-selected {
+  background-color: #e3f2fd !important;
+  border: 2px solid #2196f3 !important;
+  border-radius: 4px !important;
+  padding: 2px 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Persistent floating player widget */
+#tts-player-widget {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 10000 !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(33, 150, 243, 0.3) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1) !important;
+  padding: 8px !important;
+  max-width: 150px !important;
+  width: 150px !important;
+  overflow: hidden !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 12px !important;
+}
+
+.tts-player {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+.tts-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 4px !important;
+}
+
+.tts-title {
+  font-weight: 600 !important;
+  color: #333 !important;
+  font-size: 12px !important;
+}
+
+.tts-dismiss {
+  background: #f44336 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 18px !important;
+  height: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  transition: background 0.2s ease !important;
+}
+
+.tts-dismiss:hover {
+  background: #d32f2f !important;
+}
+
+.tts-status {
+  text-align: center !important;
+  padding: 4px 6px !important;
+  background: rgba(245, 245, 245, 0.8) !important;
+  border-radius: 4px !important;
+  font-size: 10px !important;
+  color: #666 !important;
+  min-height: 16px !important;
+  word-wrap: break-word !important;
+}
+
+.tts-controls {
+  display: flex !important;
+  gap: 4px !important;
+  justify-content: center !important;
+}
+
+.tts-controls button {
+  padding: 6px 8px !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-size: 12px !important;
+  background: #2196f3 !important;
+  color: white !important;
+  transition: all 0.2s ease !important;
+  min-width: 28px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.tts-controls button:hover:not(:disabled) {
+  background: #1976d2 !important;
+  transform: translateY(-1px) !important;
+}
+
+.tts-controls button:disabled {
+  background: #ccc !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Quick play button section */
+.tts-quick-play {
+  display: flex !important;
+  justify-content: center !important;
+  margin: 4px 0 !important;
+}
+
+.tts-quick-play-btn {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: #2196f3 !important;
+  color: white !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.tts-quick-play-btn:hover:not(:disabled) {
+  background: #1976d2 !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.tts-quick-play-btn:disabled {
+  background: #ccc !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.tts-voice {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-size: 9px !important;
+  flex-wrap: wrap !important;
+}
+
+.tts-voice label {
+  color: #555 !important;
+  font-weight: 500 !important;
+  min-width: 25px !important;
+  font-size: 8px !important;
+}
+
+.tts-voice select {
+  flex: 1 !important;
+  padding: 1px 2px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 3px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  font-size: 8px !important;
+  color: #333 !important;
+  max-width: 100px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.tts-voice select:disabled {
+  background: #f0f0f0 !important;
+  color: #999 !important;
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+}
+
+.tts-voice select:disabled::after {
+  content: " (disabled during speech)" !important;
+  font-size: 10px !important;
+  color: #666 !important;
+}
+
+.tts-speed {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-size: 9px !important;
+  flex-wrap: wrap !important;
+}
+
+.tts-speed label {
+  color: #555 !important;
+  font-weight: 500 !important;
+  min-width: 25px !important;
+  font-size: 8px !important;
+}
+
+.tts-speed input[type="range"] {
+  flex: 1 !important;
+  height: 4px !important;
+  background: #ddd !important;
+  border-radius: 2px !important;
+  outline: none !important;
+  -webkit-appearance: none !important;
+  max-width: 80px !important;
+}
+
+.tts-speed input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  width: 12px !important;
+  height: 12px !important;
+  background: #2196f3 !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+}
+
+.tts-speed input[type="range"]:disabled {
+  background: #f0f0f0 !important;
+}
+
+.tts-speed input[type="range"]:disabled::-webkit-slider-thumb {
+  background: #ccc !important;
+  cursor: not-allowed !important;
+}
+
+.tts-speed input[type="range"]::-moz-range-thumb {
+  width: 12px !important;
+  height: 12px !important;
+  background: #2196f3 !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  border: none !important;
+}
+
+.tts-speed input[type="range"]:disabled::-moz-range-thumb {
+  background: #ccc !important;
+  cursor: not-allowed !important;
+}
+
+#tts-speed-value {
+  font-size: 8px !important;
+  color: #666 !important;
+  min-width: 20px !important;
+  text-align: right !important;
+  font-weight: 500 !important;
+}
